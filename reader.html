@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Mini RSS Reader</title>
+		<!--<link rel="stylesheet" href="css/styles.css">-->
+		<script type="text/javascript" src="https://www.google.com/jsapi"></script>
+		
+		<script type="text/javascript">
+			google.load("feeds", "1");
+			function pullFeed() {
+				var feed = new google.feeds.Feed(document.getElementById("FeedList").value);
+				var container = document.getElementById("feed");
+				container.innerHTML = "";
+				
+				feed.setNumEntries(6);
+				feed.setResultFormat(google.feeds.Feed.MIXED_FORMAT);
+				feed.load(function(result) {
+					if (!result.error) {
+						for (var i = 0; i < result.feed.entries.length; i++){
+							var my_title = result.feed.entries[i].title;
+							var my_link = result.feed.entries[i].link;
+							var my_content = result.feed.entries[i].content;
+							container.innerHTML += ("<a href = \""+my_link+"\"><h2>"+my_title+"</h2></a>"+my_content);
+						}
+					}
+					else{
+						container.innerHTML = "Error retrieving feed.";
+					}
+				});
+			}
+			google.setOnLoadCallback(pullFeed);
+		</script>
+		
+	</head>
+	<body>
+		
+		
+			<div style="float:left; width:150px; position:fixed; height:100%; border-right:5px solid #ffdddd; background-color:#ffeeee;">
+				<select id="FeedList" name="RssFeeds" onchange="pullFeed()" style="width:100px; margin-left:25px; margin-top: 25px">
+					<option value="http://owlturd.com/rss">Owlturd</option>
+					<option value="http://xkcd.com/rss.xml">XKCD</option>
+					
+					<option value="http://www.qwantz.com/rssfeed.php">qwantz</option>
+				</select>
+			</div>
+			<div id="feed" style="float:left; width:795px; background-color:#eeeeff; margin-left:155px; border-left:5px solid #ddddff; padding-left:5px">
+				</br>
+			</div>
+		
+	</body>
+</html>
