@@ -1,3 +1,12 @@
+He's dead, Jim!
+======
+So this is how RSS dies, not with a bang but with a deprecation of an open api.
+
+
+
+
+
+
 Dumb RSS reader for comics
 ======
 Did you know that RSS is mostly deprecated?
